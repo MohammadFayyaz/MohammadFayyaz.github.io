@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Assemble Your Own PC: A Step-by-Step Guide - MoTech Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for the body of my article page */
+        body {
+            font-family: 'Inter', sans-serif; /* Sticking with the Inter font */
+            background-color: #121212; /* Keeping the dark theme */
+            color: #E0E0E0; /* Light text for readability */
+        }
+        /* This is the main box that holds all the article content */
+        .article-container {
+            max-width: 800px; /* I don't want the text to be too wide, makes it hard to read */
+            margin: 0 auto; /* This centers the box on the page */
+            padding: 2rem 1rem; /* Some space around the content */
+        }
+        /* Adding a bit more padding on bigger screens */
+        @media (min-width: 768px) {
+            .article-container {
+                padding: 3rem 2rem;
+            }
+        }
+        /* Styling for the main title of the article */
+        .article-header h1 {
+            font-size: 2.25rem; 
+            line-height: 2.5rem; 
+            font-weight: 900; /* Making the title nice and bold */
+            color: #ffffff; /* White text for the title */
+            margin-bottom: 0.5rem;
+        }
+        /* This is for the author name, date, and read time under the title */
+        .article-meta {
+            font-size: 0.875rem; 
+            color: #A0AEC0; /* A lighter gray for this info */
+            margin-bottom: 2rem; /* Space below the byline */
+        }
+        /* Styling for the main section headings in the article */
+        .article-content h2 {
+            font-size: 1.5rem; 
+            line-height: 2rem; 
+            font-weight: 700; /* Bold headings */
+            color: #ffffff;
+            margin-top: 2.5rem; /* Space above these headings */
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #4A5568; /* A subtle line underneath */
+            padding-bottom: 0.5rem;
+        }
+         /* Styling for smaller sub-headings, like "Parts You'll Need" */
+        .article-content h3 { 
+            font-size: 1.25rem; 
+            line-height: 1.75rem; 
+            font-weight: 600; /* Semibold for these */
+            color: #ffffff;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        /* General styling for paragraphs and lists in my article */
+        .article-content p, .article-content ul, .article-content ol { 
+            font-size: 1rem; 
+            line-height: 1.75; /* More line spacing for easier reading */
+            color: #E0E0E0;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ul { /* For my bullet point lists */
+            list-style-type: disc; /* Default circle bullets */
+            padding-left: 1.5rem; /* Indent them a bit */
+        }
+        .article-content ol { /* For my numbered lists */
+            list-style-type: decimal; /* Standard numbers */
+            padding-left: 1.75rem; 
+        }
+        .article-content li { /* Spacing for each item in a list */
+            margin-bottom: 0.5rem;
+        }
+        .article-content strong { /* Making any bolded text stand out */
+            font-weight: 600; 
+            color: #ffffff;
+        }
+        /* Styling for the images I put in the article */
+        .article-image {
+            width: 100%;
+            max-width: 600px; /* So images don't get too wide */
+            height: auto; 
+            border-radius: 0.5rem; /* Rounded corners look nice */
+            margin: 1.5rem auto; /* Centering the image and adding space */
+            display: block; 
+            background-color: #2D3748; /* Fallback color if an image is missing */
+        }
+        /* For the little captions I might put under images */
+        .image-caption {
+            font-size: 0.875rem;
+            color: #A0AEC0;
+            text-align: center;
+            margin-top: -0.5rem; 
+            margin-bottom: 2rem;
+        }
+        /* This is the "Back to MoTech Hub" link at the top of the article */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #00bfff; /* Using my site's accent blue */
+            text-decoration: none; /* No underline by default */
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline; /* Add underline when I hover over it */
+        }
+
+        /* My custom scrollbar, trying to match the dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2c2c2c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444; 
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="article-container">
+        <a href="index.html" class="back-link">&larr; Back to MoTech Hub</a>
+
+        <header class="article-header">
+            <h1>How to Assemble Your Own PC: A Step-by-Step Guide for Beginners</h1>
+            <div class="article-meta">
+                <span>By Mohammad Fayyaz</span> &bull;
+                <span>Mar 16</span> &bull;
+                <span>4 min read</span>
+            </div>
+        </header>
+
+        <article class="article-content">
+            <p>Building your own PC can feel overwhelming, especially if you are new to the concept. However, the process is incredibly rewarding and offers numerous benefits. When you build your own computer, you not only gain hands-on experience but also have the opportunity to customize it completely to suit your specific needs. This guide will take you through every step of the assembly process, empowering you to take on this exciting project.</p>
+
+            <h2>Benefits of Building Your Own PC</h2>
+            <p>Building your own PC can provide you with several advantages compared to buying a pre-built machine.</p>
+            <p>First and foremost, customization is a huge benefit. You can choose each component based on your specific needs. For example, if you're a gamer, you can select a high-performance GPU like the NVIDIA GeForce RTX 3060, which can achieve frame rates exceeding 60 FPS in popular games.</p>
+            <p>Second, it can be more cost-effective. According to recent surveys, building your own PC can save you up to 30% compared to pre-built systems. You only pay for the parts you truly need without the added costs of software and components you may never utilize.</p>
+            <p>Lastly, assembling your own PC allows you to gain valuable knowledge about computer systems. This understanding aids in troubleshooting issues or upgrading components down the line, saving you time and potentially money on repairs or purchases.</p>
+
+            <h2>Parts You'll Need</h2>
+            <p>Before diving into the assembly, it's critical to gather all the necessary components. Here’s a list of essential parts you’ll require:</p>
+            <ul>
+                <li><strong>Central Processing Unit (CPU):</strong> The brain of your computer, for instance, the AMD Ryzen 5 5600X, which provides excellent performance for gaming and multitasking.</li>
+                <li><strong>Motherboard:</strong> The main circuit board that connects all components; ensure it is compatible with your CPU, such as an ASUS TUF Gaming B550-PLUS.</li>
+                <li><strong>Random Access Memory (RAM):</strong> Temporary storage for data; consider getting 16GB of DDR4 RAM for a smooth experience.</li>
+                <li><strong>Storage (HDD/SSD):</strong> Your data and operating system will reside here. An SSD, like the Samsung 970 EVO Plus, can drastically improve boot times and application loading speeds.</li>
+                <li><strong>Graphics Processing Unit (GPU):</strong> This is crucial for rendering graphics, especially important for gaming and video editing. A card like the AMD Radeon RX 6700 XT can handle high-end settings with ease.</li>
+                <li><strong>Power Supply Unit (PSU):</strong> Provides reliable power to your computer; a 650W PSU is often a safe choice for most builds.</li>
+                <li><strong>Case:</strong> The enclosure that holds all components; ensure it has good airflow and space for your GPU.</li>
+                <li><strong>Cooler:</strong> Keeps the CPU at optimal temperatures. An effective cooler, such as the Cooler Master Hyper 212, can extend the lifespan of your CPU.</li>
+            </ul>
+            <img src="Computer4.jpeg" alt="Various PC components like motherboard, CPU, RAM, and GPU laid out" class="article-image" onerror="this.onerror=null; this.src='https://placehold.co/600x350/2D3748/E0E0E0?text=Image+Not+Found';">
+            <p class="image-caption">Essential components for building a PC.</p>
+
+            <h2>Tools You'll Need</h2>
+            <p>Having the right tools at your disposal simplifies the building process. Here are some essential tools you'll need:</p>
+            <ul>
+                <li><strong>Screwdriver:</strong> A Phillips-head screwdriver is typically sufficient for most screws.</li>
+                <li><strong>Anti-static Wrist Strap:</strong> This helps prevent static electricity from damaging delicate components.</li>
+                <li><strong>Cable Ties:</strong> These are invaluable for organizing cables inside your case.</li>
+                <li><strong>Thermal Paste (if not pre-applied):</strong> Necessary for optimal heat transfer from CPU to cooler.</li>
+            </ul>
+
+            <h2>Step-by-Step Guide</h2>
+            <p>Now that you're equipped with the necessary parts and tools, let’s get to the building process:</p>
+            <ol class="list-decimal pl-5 space-y-2 mb-6">
+                <li><strong>Prepare Your Workspace:</strong> Choose a clean and spacious area. A larger workspace minimizes the chance of losing small screws or parts.</li>
+                <li><strong>Install the CPU:</strong> Carefully place your CPU into the socket on the motherboard, ensuring it is aligned with the notches. A single misalignment can lead to malfunction.</li>
+                <li><strong>Apply Thermal Paste:</strong> If it’s not pre-applied, add a small amount of thermal paste on the CPU’s surface; about the size of a pea is generally enough.</li>
+                <li><strong>Attach the CPU Cooler:</strong> Securely attach the cooler on top of the CPU according to the manufacturer's instructions. This is a key step to prevent overheating.</li>
+                <li><strong>Insert RAM Modules:</strong> Locate the RAM slots on the motherboard and insert the RAM sticks until you hear a click. Ensure they are seated properly for optimal performance.</li>
+                <li><strong>Install the Motherboard:</strong> Place the motherboard inside the case and secure it with screws. It’s essential that it’s fixed securely to avoid any movements that could disrupt connections.</li>
+                <li><strong>Add Storage and GPU:</strong> Install your SSD or HDD in their respective slots and insert the GPU into the appropriate PCIe slot. Make sure to adjust the case if necessary to fit the GPU.</li>
+                <li><strong>Connect the PSU:</strong> Plug in the PSU cables to the motherboard, CPU, GPU, and storage devices. Double-check to ensure everything is connected firmly.</li>
+                <li><strong>Cable Management:</strong> Use cable ties to neatly organize your cables. This helps improve airflow inside the case, which contributes to better cooling efficiency.</li>
+                <li><strong>Final Steps:</strong> Review all connections one last time, close the case panels, and attach your peripherals (monitor, keyboard, mouse).</li>
+            </ol>
+            <img src="Computer2.jpeg" alt="Inside of a PC case with components being assembled" class="article-image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2D3748/E0E0E0?text=Image+Not+Found';">
+            <p class="image-caption">A close-up look at a partially assembled PC with visible components.</p>
+
+            <h2>Tips for a Smooth Building Experience</h2>
+            <p>As a beginner, consider these tips to make your building experience smoother:</p>
+            <ul>
+                <li><strong>Take Your Time:</strong> There’s no need to rush. Taking breaks can help maintain focus and prevent mistakes.</li>
+                <li><strong>Consult Manuals:</strong> Each component comes with its own manual, offering important installation information and troubleshooting guidance.</li>
+                <li><strong>Watch Tutorials:</strong> Video tutorials can provide visual guidance that complements this written guide and help clarify any unclear steps.</li>
+                <li><strong>Ask for Help:</strong> If you encounter difficulties, seek assistance from a friend or an online community. Many forums are dedicated to PC building tips and help.</li>
+                <li><strong>Test Before Full Assembly:</strong> Consider a test boot, also known as breadboarding, before fully closing the case. This ensures all components are functional.</li>
+            </ul>
+            <img src="Computer3.jpeg" alt="Close-up of a CPU installed on a computer motherboard" class="article-image" onerror="this.onerror=null; this.src='https://placehold.co/600x350/2D3748/E0E0E0?text=Image+Not+Found';">
+            <p class="image-caption">Detailed view of a CPU installed on a motherboard.</p>
+
+            <h2>Wrapping Up Your PC Building Journey</h2>
+            <p>Congratulations on taking the first step toward assembling your own PC! This guide provides the essential steps and knowledge needed for a successful experience. Not only will you build a powerful, customized computer, but you’ll also develop a deeper understanding of how technology operates.</p>
+            <p>Remember, building a PC is not just a task but a valuable learning experience. Embrace any challenges you encounter along the way. Take pride in your accomplishments once your system is up and running. Happy building!</p>
+        </article>
+    </div>
+
+</body>
+</html>

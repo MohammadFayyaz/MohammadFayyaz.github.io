@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoTech - Tech Enthusiasts Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* These are my main colors for the site, trying to keep it consistent! */
+        :root {
+            --motech-bg-dark: #121212; /* My main dark background color */
+            --motech-card-dark: #2c2c2c; /* A slightly lighter dark for cards */
+            --motech-section-dark: #222222; /* And another dark for some sections */
+            --motech-text-light: #E0E0E0; /* Light text for good contrast */
+            --motech-text-white: #ffffff; /* Pure white for really important text */
+            --motech-accent-blue: #00bfff; /* This is my main pop of color */
+            --motech-button-text-dark: #111111; /* Dark text for light buttons */
+            --motech-border-color: #444; /* Subtle borders */
+        }
+
+        /* This makes anchor links scroll smoothly when clicked - pretty cool! */
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        /* Basic setup for the whole page */
+        body {
+            font-family: 'Inter', sans-serif; /* Using the Inter font I picked */
+            background-color: var(--motech-bg-dark); /* Dark theme for the page */
+            color: var(--motech-text-light); /* Default text color */
+            display: flex; /* Using flexbox to help with footer later */
+            flex-direction: column; /* Stacking body elements vertically */
+            min-height: 100vh; /* Make sure the page is at least as tall as the screen */
+        }
+
+        /* Styling for my new header - wanted it to be black */
+        .motech-header-new {
+            background-color: #000000;
+        }
+        /* Styling for my SVG logo in the header */
+        .header-logo-svg {
+            height: 32px; /* Adjust height as needed, width will scale automatically */
+            width: auto;
+            /* The fill color for the logo paths is now set directly in the SVG using CSS variables */
+            transition: filter 0.3s ease; /* For a subtle hover effect if desired */
+        }
+         .header-logo-svg:hover {
+            filter: brightness(1.3); /* Example hover effect: slightly brighter blue */
+        }
+
+
+        /* Styling for the navigation links in the header */
+        .nav-link { 
+            transition: color 0.3s ease; /* Smooth color change on hover */
+        }
+
+        .nav-link:hover {
+            color: #a0aec0; /* A lighter gray when I hover over a link */
+        }
+        
+        /* This class will show which nav link is 'active' or current */
+        .nav-link.active { 
+            color: var(--motech-accent-blue) !important; /* My accent blue for the active link */
+        }
+
+        /* Styles for the big hero section at the top */
+        .hero-section {
+            color: var(--motech-text-white); /* White text here for impact */
+            padding: 60px 0; 
+            text-align: center; /* Centering the hero content */
+        }
+        .hero-section h1 { /* The main headline of the hero */
+            font-size: 3.5rem; 
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero-section .lead { /* The smaller text under the main headline */
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            max-width: 700px; /* Don't want it too wide */
+            margin-left: auto; /* Centering this text block */
+            margin-right: auto;
+        }
+        /* My main call-to-action button style */
+        .btn-motech-primary { 
+            background-color: var(--motech-accent-blue);
+            color: var(--motech-button-text-dark);
+            border: 1px solid var(--motech-accent-blue); 
+            padding: 10px 30px; 
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px; /* Rounded corners are nice */
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth hover effect */
+            text-decoration: none; /* Remove underline from link */
+        }
+        .btn-motech-primary:hover {
+            background-color: #009acd; /* A slightly darker blue on hover */
+            border-color: #009acd; 
+            color: var(--motech-button-text-dark);
+        }
+
+        /* This is for the section showing off a few featured products/images */
+        .featured-content-section { 
+            padding: 40px 0; 
+            background-color: var(--motech-card-dark); 
+        }
+        .featured-item img { /* Styling for the images in that featured section */
+            width: 100%; 
+            height: 200px; /* Fixed height for these images */
+            object-fit: cover; /* Make sure images cover the area, might crop a bit */
+            border-radius: 5px; 
+            margin-bottom: 15px; 
+            border: 2px solid #555; 
+        }
+        
+        /* Styles for my "Latest Articles" area */
+        .latest-articles-section { 
+            padding: 60px 0;
+            background-color: var(--motech-section-dark); 
+        }
+        .latest-articles-section .section-title { /* The "Latest Articles" heading */
+            color: var(--motech-text-white);
+            text-align: left; 
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        /* Styling for each individual article card */
+        .article-card { 
+            background-color: var(--motech-card-dark);
+            border: 1px solid var(--motech-border-color);
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden; /* Important if content tries to break out of rounded corners */
+            display: flex; /* Using flex to make cards in a row equal height */
+            flex-direction: column; /* Stack content inside card vertically */
+            height: 100%; /* Make card take full height of its column */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Nice hover effect */
+        }
+        .article-card:hover {
+            transform: translateY(-5px); /* Lift card a bit on hover */
+            box-shadow: 0 8px 15px rgba(0, 191, 255, 0.1); /* Add a subtle blue shadow */
+        }
+        .article-card img { /* Image inside the article card */
+            width: 100%;
+            height: 200px; 
+            object-fit: cover; /* Cover the area, might crop */
+        }
+        .article-card .card-body { /* The text part of the card */
+            padding: 20px;
+            flex-grow: 1; /* Allows card body to fill space if card heights vary */
+            display: flex;
+            flex-direction: column; /* Stack text elements vertically */
+        }
+        .article-card .card-title a { 
+            color: var(--motech-text-white);
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-decoration: none; 
+            display: block; 
+        }
+        .article-card .card-title a:hover {
+            color: var(--motech-accent-blue); 
+        }
+        .article-card .card-text { /* The short description text */
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            flex-grow: 1; /* Helps push footer icons down */
+        }
+        .article-card .card-author {
+            font-size: 0.8rem;
+            color: #aaa; /* Lighter gray for less emphasis */
+            margin-bottom: 15px;
+        }
+        .article-card .card-footer-icons { /* Container for comment and share icons */
+            margin-top: auto; /* Push to the bottom of the card body */
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            color: #aaa; 
+            font-size: 0.9rem;
+        }
+        .article-card .comment-count, 
+        .article-card .share-icon-link { 
+            cursor: pointer; /* Make them look clickable */
+        }
+        .article-card .comment-icon { /* The SVG icon for comments */
+            fill: var(--motech-accent-blue); 
+            width: 20px; 
+            height: 20px;
+            margin-right: 5px; 
+        }
+         .article-card .card-footer-icons .share-icon-link { 
+            color: var(--motech-accent-blue); 
+            text-decoration: none;
+        }
+         .article-card .card-footer-icons .share-icon-link:hover .share-icon .enclosing-circle {
+            stroke: var(--motech-text-white); 
+        }
+         .article-card .card-footer-icons .share-icon-link:hover .share-icon {
+            fill: var(--motech-text-white); 
+         }
+         .article-card .card-footer-icons .share-icon { 
+            fill: var(--motech-accent-blue); 
+            width: 18px; 
+            height: 18px;
+            vertical-align: middle; 
+            transition: fill 0.2s ease-in-out;
+        }
+        .article-card .card-footer-icons .share-icon .enclosing-circle {
+            stroke: var(--motech-accent-blue); 
+            fill: none; 
+            stroke-width: 5px; 
+            transition: stroke 0.2s ease-in-out;
+        }
+
+        /* Styles for the Pixel XL phone specs section */
+        .feature-card { 
+            background-color: #1E1E1E; /* A different dark for these cards */
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden; 
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-card ul li { 
+            position: relative; /* Needed for the custom bullet points */
+            padding-left: 1.25rem; 
+            text-align: left; 
+        }
+        .feature-card ul li::before { /* My custom green bullet points */
+            content: '•'; 
+            position: absolute;
+            left: 0;
+            color: #4ADE80; 
+        }
+        /* This is for the little battery icon next to the Pixel XL title */
+        .pixel-title-icon {
+            width: 40px; 
+            height: auto;
+            margin-left: 10px; 
+            vertical-align: middle; /* Helps it line up with the text */
+        }
+
+
+        /* My footer style */
+        .footer {
+            background-color: #222; 
+            padding: 20px 0; 
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: auto; /* This pushes the footer to the bottom if content is short */
+            border-top: 1px solid var(--motech-border-color); 
+        }
+
+        /* Styles for the Contact Us section wrapper */
+        .contact-section-wrapper { 
+            background-color: var(--motech-section-dark); 
+            color: var(--motech-text-light); 
+            padding: 2.5rem 1rem; /* Some space around it */
+        }
+        /* A bit more padding on larger screens */
+        @media (min-width: 640px) { 
+            .contact-section-wrapper {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+        @media (min-width: 1024px) { 
+            .contact-section-wrapper {
+                padding: 2.5rem;
+            }
+        }
+        .contact-title-wrapper { /* For aligning title and icons in Contact Us */
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            margin-bottom: 0.5rem; 
+        }
+        .contact-title-icon { /* Styling for the mail and contact SVGs */
+            width: 28px; 
+            height: auto;
+            margin: 0 8px; 
+        }
+        
+        /* My custom button styles for the Contact Us form */
+        .btn-ui-primary {
+            background-color: var(--motech-accent-blue);
+            color: var(--motech-button-text-dark) !important; 
+            font-weight: 600; 
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); 
+            transition: background-color 0.15s ease-in-out;
+        }
+        .btn-ui-primary:hover {
+            background-color: #009acd; 
+        }
+
+        .btn-ui-secondary {
+            background-color: var(--motech-card-dark);
+            color: var(--motech-text-light);
+            border: 1px solid var(--motech-border-color);
+            font-weight: 600; 
+            padding: 0.5rem 1rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); 
+            transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+        .btn-ui-secondary:hover {
+            background-color: var(--motech-border-color); 
+            border-color: var(--motech-accent-blue);
+        }
+
+        /* Custom styles for the form inputs in Contact Us */
+        .form-input-ui {
+            background-color: #383838; /* Darker input background */
+            border: 1px solid var(--motech-border-color);
+            color: var(--motech-text-light);
+            width: 100%;
+            padding: 0.625rem 1rem; 
+            border-radius: 0.5rem; 
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            outline: none; /* Remove default browser outline */
+        }
+        .form-input-ui::placeholder { /* Styling the placeholder text */
+            color: #888888; 
+        }
+        .form-input-ui:focus { /* Style when the input is selected */
+            border-color: var(--motech-accent-blue);
+            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.25); /* A little glow */
+        }
+
+        /* I wanted a custom scrollbar that matches my theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--motech-bg-dark); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--motech-card-dark); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--motech-border-color); 
+        }
+
+        /* Styles for the "Scroll to Top" button */
+        #scrollToTopBtn {
+            display: none; /* Hidden by default, JS will show it */
+            position: fixed; /* Stays in place when scrolling */
+            bottom: 20px; 
+            right: 30px; 
+            z-index: 99; /* Make sure it's on top of other stuff */
+            border: none; 
+            outline: none; 
+            background-color: var(--motech-accent-blue); 
+            color: var(--motech-button-text-dark); 
+            cursor: pointer; 
+            padding: 10px 12px; 
+            border-radius: 50%; /* Make it round */
+            font-size: 18px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* A little shadow */
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #009acd; /* Darker blue on hover */
+        }
+
+        /* Modal Styles (I'm using these for a few different pop-ups) */
+        .modal-overlay {
+            display: none; /* Hidden by default, JS will show it */
+            position: fixed; 
+            z-index: 100; /* Make sure modals are on top */
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; /* In case content is too long */
+            background-color: rgba(0,0,0,0.6); /* Semi-transparent black background */
+            justify-content: center; /* Center the modal content box */
+            align-items: center; 
+        }
+        .modal-content { /* The actual pop-up box */
+            background-color: var(--motech-card-dark);
+            margin: auto;
+            padding: 25px;
+            border: 1px solid var(--motech-border-color);
+            border-radius: 0.75rem;
+            width: 90%; /* Responsive width */
+            max-width: 450px; /* But not too wide on large screens */
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            color: var(--motech-text-light);
+        }
+        .modal-content h2 {
+            color: var(--motech-text-white);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .modal-close-btn { /* The "Close" button in my modals */
+            background-color: var(--motech-accent-blue);
+            color: var(--motech-button-text-dark);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            background-color: #009acd;
+        }
+        /* Specific styles for the share options in the share modal */
+        #shareModalOptions a {
+            display: block;
+            padding: 8px 0;
+            color: var(--motech-accent-blue);
+            text-decoration: none;
+        }
+        #shareModalOptions a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> 
+    <header class="motech-header-new py-6">
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+            <a href="index.html" class="text-white hover:text-gray-300 flex items-center">
+                <svg class="header-logo-svg mr-2" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 535.44 466.95">
+                    <path d="M535.44,0v466.95H0V0h535.44Z" style="fill:none;"/> 
+                    <path d="M177.94,17.11c-4.03-3.73-8.07,4.21-10.36,7.12-7.96,10.12-15.12,21.69-22.57,32.27-1.91,2.7-7.02,5.76-9.67,7.85-.41.08-6.48-3.11-7.47-3.67-11.17-6.33-21.67-12.3-33.9-16.98-4.68-1.79-5.64-1.36-10.2-3.94-2.53-1.43-10.61-4.15-13.51-4.58-1.5-.22-3.07-.29-4.57-.06-1.52,2.56.02,2.66,1.05,4.15,1.61,2.34,1.95,1.86,2.69,2.67.32.36.24,2.46,1.23,3.44,12.64,12.44,27.66,29.96,36.07,46.05.93,1.77,3.83,7.8,3.33,9.36-.33,1.04-2.4,3.74-3.24,4.57-2.86,2.86-7.62,5.17-10.17,8.46l-10.65,5.24,5.51,21.57c.1,2.09-3.79,4.11-5.36,5.41-2.77,2.28-8.34,7.02-11.38,8.67-2.07,1.12-6.04,1.45-7.68,2.97-.61.56-.23,1.5-.4,1.66-.14.13-2.65.14-3.76.51-2.07.69-3.84,3.2-5.67,3.94-.82.33-1.95.19-2.85.54-4.03,1.57-7.14,2.54-11.45,3.35-.59,3.11,1.28,5.22,1.73,8.13l1.12-.86c1.35-.58.71,1.48.84,2,1.05,4.48,2.6,8.78,4.13,12.82,1.64,4.35,3.97,11.26,6.58,14.92.91,1.27,2.92,2.47,4.53,2.24,1.77-.26,8.62-9.59,10.69-11.69,9.07-9.18,20.8-16.64,31.43-23.69,5.96-3.95,11.53-8.72,18.12-11.56.98,1.32-3.51,6.97-4.26,8.46-7.46,14.85-13.01,31.29-19.45,46.25-1.54,3.59-3.43,7.43-4.82,10.91-.59,1.47.07,5.62,2.24,5.64l40.25-60.54c2.87-1.59,5,.73,7.61,1.36,5.77,1.38,11.9,2,17.68,3.24,3.06.66,8.19,4.2,10.44.68.49-2-6.1-8.16-7.52-10.09l-3.71-2.51c4.41-.67,8.74,1.57,13.36,2.18,3.09.41,7.33.57,10.39.36,3.81-2.28-5.01-9.89-5.83-12.55-.53-.75-9.57-6.45-8.3-7.52,2.15.35,5.57.15,7.52.58.4.09.38.94.83,1.07,4.74,1.36,12.36,3.3,13.57,8.93,1.15,5.31-.53,13.48-1.01,19.1-.06.75.54,1.59.51,2.29-.16,3.5-10.62,16.84-13.56,19.7-13.85,13.47-30.33,23.32-42.35,38.5-14.69,18.55-12.25,41.86-11.33,63.9.08,2,.21,8.11.57,9.48.15.6,1.2.58,1.42.92.23.37-.31,5.19,1.7,5.15l1.72-.58c-.41-1.54.2-4.18,0-5.4-.14-.86-1.23-1.56-1.45-3.37-.48-3.96.27-8.91.04-13.04-1.08-19.69-2.81-35.86,9.57-52.54,8.69-11.7,20.66-20.17,31.4-29.69,7.96-7.05,16.81-14.07,22.59-23.2,4.06-6.42,3.06-13.37,3.75-20.56.34-3.49,1.54-5.13.93-9.52-1.33-9.49-7.87-12.76-16.11-14.98-6.98-1.88-13.19-2.73-20.41-1.76l-1.17,3.81c3.23,1.47,6.75,3.81,9.52,6.05,1.47,1.18,9.8,8.54,7.96,10.41-4.72-.94-9.45-1.97-14.13-3.1-2.12-.51-4.16-1.05-6.37-1.55-3.36-.76-8.68-3.99-7.14,2.6l14.63,12.22c-5.67-.76-11.56-2.08-17.09-3.54-2.04-.54-4.22-1.1-6.24-1.68-1.89-.54-2.97-2.68-6.07-1.27l-25.17,39.27c-1.38-.86-.47-2.26,0-3.38,5.43-12.86,11.87-25.08,17.72-37.68.91-1.96,6.26-13.69,6.24-14.63-.04-1.7-1.77-3.27-3.49-3-1.5.23-5.75,5.75-7.46,7.27-6.9,6.13-16.84,11.38-24.59,16.7-2.4,1.65-5.66,3.37-7.51,4.76-8.28,6.2-16.66,14.48-23.86,21.83-1.47,1.5-3.21,2.83-4.83,4.19.34-2.15-2.12-4.14-2.77-5.55-.73-1.58-.98-3.5-1.65-5.01-1.82-4.09-5.59-10.91-6.63-14.87-.21-.79-.55-1.49,0-2.27,2.37-.95,4.81-2.76,6.96-3.8,5.97-2.91,12.49-5.58,18.36-8.78,7.98-4.36,14.48-9.49,21.4-15.36,1.31-1.73-1.53-7.55-2.14-9.81-.45-1.65-3.1-11.48-2.91-12.16.28-1.01,5.86-3.41,7.45-4.46,4.05-2.69,13.6-10.61,15.91-14.62,2.59-4.5-.24-5.54-1.98-8.71-6.64-12.04-11.04-20.52-20.55-30.9-4.46-4.86-8.4-9.84-12.78-14.92-.66-.76-7.23-6.62-6.21-7.63,1.16.63,2.56-.06,3.51.15,9.91,2.17,26.14,10.24,35.57,14.76,1.49.72,7.3,2.53,7.72,2.79.6.36,2.39,2.99,3.32,3.7,2.35,1.8,5.2,2.72,7.74,4.13,1.52.85,4.16,3.49,5.73,3.31,2.71-2.44,6.65-4.3,9.31-6.55,3.36-2.84,2.78-4.08,4.64-6.67,3.35-4.67,7.29-8.97,10.56-13.75,2.35-3.44,4.99-9.36,7.19-12.03.4-.49,2.96-2.43,3.08-2.28-1.21,3.37-1.47,6.87-2.4,10.31-3.06,11.38-6.96,21.85-11.3,32.8-.49,1.24-3.22,3.91-1.01,5.79,3.42,2.89,8.26-5.05,10.74-7.36,9.32-8.69,21.91-18.76,31.94-26.86.9-.72,5.58-5.9,6.52-5.07l-7.92,11.58c-7.73,7.61-13.42,17.41-21.17,25.18-1.07,1.07-5.19,3.72-5.67,4.5-1.79,2.91,2.02,4.55,4.52,4.58,7.35.06,16.54-2.42,24.3-2.92,20.55-1.32,43.97-.54,63.48,4.98,1.62.46,3.55.68,5.23.71v1.69c-4.53-.51-8.81,1.36-13.29,1.59-11.25.57-23.12-2.38-34.49.16l-11.22-1.12c-5.66,6.93.55,5.06,4.32,6.27.82.26,1.24,1.31,1.92,1.49.87.23,2.74-.69,4.37-.47,4.09.56,13.17,9.38,16.45,12.41,7.63,7.06,13.88,12.56,18.01,22.7,2.37,5.82,4.02,12.11,6.33,17.98,1.18,1.79,3.26,2.39,4.91,3.42,1.01.63,1.05,2.53,3.81,1.71l-1.69.84c2.22,2.25,3.93,5.33,5.92,7.65,1.64,1.91,4.28,3.74,5.95,5.92,3.15,4.11,5.35,9.74,9.04,13.57l-1.31.74-16.75-11.55-1.63,1.31c.38,4.09-.38,8.2-.09,12.31.21,2.99,1.25,6.2,1.62,9.12.52,4.08-.33,9.86,2.33,12.94l-1.64,1.16,3.47,23.58,7.53,11.75c2.92.1,2.69-2.11,3.97-3.95,10.15-14.57,17.86-30.3,26.91-45.45,4.89-8.18,11.36-16.04,16.53-24.18,16.18-25.45,30.97-51.75,47.28-77.1,1.8-2.79,4.07-8.55,5.89-10.5,2.25-2.41,7.28-3.14,10.14-4.55,27.28-13.44,52.88-28.57,81.61-39.38.97-.36,7.51-3,7.49-.98-4.83,5.95-8.77,12.63-13.83,18.38-5.93,6.73-13.43,12.9-18.93,20.08-2.7,3.52-8.9,12.13-10.77,15.8-2.08,4.07.76,3.1,1.18,6.2.57,4.24.51,11.9.56,16.4.17,17.14-2.9,34.26-2.91,51.47,0,6.47,1.62,13.36,1.23,19.78-.89,14.8-2.02,28-1.76,43,.12,7.15-.03,21.3,1.33,27,.14.61.85,1.12.93,1.83.32,2.64-1.11,5.66,1.76,6.8-2.4,4.84.11,10.16.52,15.22.91,11.19.91,22.21,2.3,33.32.04.32,1.12,3.46,1.41,3.65,2.07,1.39,4.46-1.26,6.34-2.06,2.71-1.15,6.73-2.84,9.5-3.51,3.17-.78-2.58,3.74-2.8,3.99-19.1,20.59-37.67,32.75-59.99,49.12-6.39,4.69-11.85,8.83-18.93,12.73-1.54.85-11.86,6.37-12.45,5.92,5.51-8.48,9.85-17.94,16.41-25.7,1.28-1.51,4.74-3.75,4.97-5.22-.1-1.93-.93-3.53-1.05-5.52-1.16-20.24,1.9-40.74,2.26-61.1.46-25.88-1.07-53.73-3.37-79.68-.4-4.51-.76-10.08-1.4-14.44-.19-1.29-.35-3.51-1.82-3.87-1.14-.23-1.89.47-2.71,1.06-2.72,1.95-11.64,11.06-13.85,13.85-1.82,2.29-3.23,5.93-4.84,8.16-16.79,23.18-33,46.56-51.15,68.71-3.74,4.56-7.81,8.85-11.58,13.3-4.41,5.21-8.69,10.52-12.99,15.81-3.65-2.09-5.93-5.81-8.75-8.76-8.68-9.05-16.55-18.06-24.57-28.01-1.42-1.77-2.25-4.23-3.73-5.89-1.78-2-5.15-3.77-7.03-5.98-1.71-2.02-1.77-6.22-5.71-2.8-2.38,2.07-2.22,7.74-2.88,10.83-1.37,6.45-2.65,12.47-3.41,18.95-.19,1.61.65,4.36-.21,6.41-2.43-1.8-4.74-9.53-6.8-10.46-1-.45-3.62-.21-4.36.42-.42.36-.45,1.47-1.02,2.08-3.88,4.17-5.34,6.74-8.3,11.5-.44.71-.53,1.19-1.56.98-.5-.38-2.32-7.94-2.96-9.2-2.47-4.92-8.95-12.72-12.59-16.81-.51-.57-.67-1.49-.89-2.22l-1.33-.04c-.32,1.27-1.73,1.08-2.28,1.7-1.91,2.2-.34,7.91-.42,10.45-.1,3.23-1.34,6.66-1.58,9.62-1.12,13.74,2.96,28.89,5.08,42.4l1.29,27.06c.57,1.39,5.49,3.05,7.15,4.08,5.56,3.44,10.54,7.84,15.34,11.95l3.93,4.67c-2.68.79-4.01-1.09-5.9-1.73-7.73-2.63-14.9-6.36-22.23-9.43-5.25-2.2-7.31-4.71-12.06-7.73-13.58-8.66-25.44-14.06-40.1-20.4-6.35-2.74-7.05-5-11.73-8.78-5.88-4.73-16.77-10.78-18.81-18.92-.3-1.21-.15-.62.58-.59,1.48.07,4.36.25,5.76.48,2.02.34,6.9,2.17,8.02,2.08,1.94-.16,3.59-2.28,2.54-3.89-.48-.74-14.79-4.06-17.02-4.74s-8.38-4.83-9.92-1.14c-1.3,3.12.23,3.12,1.48,5.06,4.12,6.42,9.65,16.49,15.56,20.9,8.12,6.06,14.97,12.37,24.54,16.46,13.96,5.96,26.1,12.08,38.94,20.71,1.45.97,4.5,4.24,5.74,4.83,2.46,1.19,6.45,2,9.6,3.29,7.12,2.92,14.6,6.78,22.19,8.9,3.78,1.06,19.41,3.96,13.01-3.97-5.17-6.41-19.95-18.83-26.96-23.36-1.32-.86-4.64-1.54-5.18-3.31-.75-2.47.13-8.63-.12-11.76-1.26-16.32-6.87-35.67-6.23-51.48.17-4.12,1.7-8.44,1.16-12.69.86-.18,1.2.25,1.7.84,3.54,4.27,7.97,11.27,9.45,16.55,1.13,4.01.3,13.06,6.08,9.15,3.66-6.1,6.54-12.76,11.34-18.07.59-.16,1.68.91,1.98,1.4,1.43,2.29,2.73,6.23,4.03,8.41,1.57,2.63,3.11,5.53,6.28,4.76,3.92-.94,2.02-6.2,2.08-8.66.13-5.27.77-17.1,1.85-21.89.18-.79,2.37-6.75,2.67-6.96,1.04-.5,2.24.29,2.36,1.37l1.61-.48c.84,3.25,4.58,6.07,6.78,8.78,1.02,1.27,5.2,7.87,6.01,8.07.37.09,1.3-.51,1.35-.45-.59,3.85,2.71,5.02,4.34,6.98,6.23,7.51,12.74,15.4,20.34,21.49,2,1.6,1.65,3.59,5.7,2.19,3.24-1.12,9.15-10.1,11.74-13.14,23.27-27.37,43.52-53.89,64.42-83.13,5.73-8.02,8.23-13.59,15.85-20.89.61-.58,1.01-1.32,2-1.11-.4,2.28.39,4.39.57,6.5.2,2.36,1.02,5.55,1.06,6.75.07,2.44-.64,5.56-.48,8.5.38,7.3,2.72,16.16,2.86,23.18.07,3.43-.99,7.8-1.01,11.33-.08,12.64,1.72,24.97,1.54,37.85-.24,16.68-2.48,33.06-2.71,49.75-.04,3.23.99,7.28.42,10.71-.32,1.9-10.14,14.78-12.09,17.87-2.41,3.81-4.34,8.9-7.1,12.68-1.3,1.78-8.58,7.9-5.57,9.81,3.15.35,6.64-1.23,9.52-2.47,21.81-9.39,40.08-25.3,59.19-39.18,5.75-4.17,11.75-7.74,17.26-12.54,9.16-7.97,16.94-17.98,26.19-25.98,1.94-1.68,4.19-1.33,4.68-4.39s-1.69-2.6-4-2.27l-23.03,7.78c-.54-5.74-1.81-11.5-2.26-17.25-1.62-20.55-3.79-41-4.5-61.64-.71-20.46,1.14-40.69-.02-61.04-.09-26,4.41-51.96,1.11-77.98,8.35-15.76,22.35-26.77,33.04-40.51,3.66-4.7,6.83-9.75,10.28-14.59,1.34-1.89,4.18-3.31,2.78-6.26-1.02-2.16-3.15-.08-4.78.3-16.86,4.02-35,13.1-50.7,20.54-17.28,8.18-33.35,19.22-51.51,25.1-3,3.8-4.68,8.84-7.27,12.8-1.85,2.82-4.52,5.04-6.36,7.78-2.32,3.47-3.66,7.55-5.85,11.11-19.41,31.51-39.12,62.88-58.03,94.61-4.45,7.47-8.84,15.35-13.46,22.73-2.08,3.32-4.8,6.24-6.72,9.67l-1.66.58c-.4-.05-4.54-6.12-4.7-6.66-2.11-7-2.75-18.83-3.53-26.43-.63-6.12-2.15-15.8-2.15-21.47,0-1.14.7-2.42.45-3.68.31-.33,5,2.24,5.59,2.61,5.65,3.51,11.8,7.85,16.43,12.41.88.87,2.32,1.23,2.31,2.5,4.17-.88.38-7.1-.92-9.54-5.63-10.57-16.75-24.48-24.8-33.43-1.84-2.04-7.25-5.95-8.26-7.57-2.1-3.37-4.29-12.84-6.08-17.11-4.9-11.69-16.35-21.96-26.09-29.9-1.19-.97-5.61-2.29-2-3.63,9.5-.48,19.37.69,28.81-.16,7.16-.65,14.23-1.54,21.43-2.18,3.25-.29,6.97-.36,5.15-4.44-1.48-3.31-19.3-8.08-23.33-8.9-20.27-4.13-43.67-4.19-64.21-3.5-4.58.15-9.94,1.59-14.51,2.21.73-.91,1.03-2.2,1.7-3.1,11.26-15.2,24.88-28.86,34.94-45.33,1.26-2.07,5.39-8.54,1.4-9.69-2.93-.85-3.84,1.36-5.29,2.39-13.92,9.9-25.5,22.5-38.69,33.13-.87.7-7.5,7.02-8.19,6.22,0-3.66,2.25-7.06,3.22-10.62,2.22-8.11,6.5-23.08,6.97-30.95.06-.97-.03-2.83-.75-3.49v.05h0Z" style="fill:var(--motech-accent-blue);" />
+                </svg>
+                <span class="text-3xl font-bold text-white hover:text-gray-300">MoTech</span>
+            </a>
+            <nav>
+                <ul class="flex space-x-6 md:space-x-8 text-lg">
+                    <li><a href="#contact-us-section" class="nav-link text-white">Contact</a></li> 
+                    <li><a href="#pixel-xl-specs" class="nav-link text-white">Phones</a></li>
+                    <li><a href="review-pixel-nine-pro-xl.html" class="nav-link text-white">Reviews</a></li>
+                    <li><a href="#latest-articles-section" class="nav-link text-white">Articles</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>TECH ENTHUSIASTS HUB</h1>
+                <p class="lead">
+                    Stay informed with our latest tech reviews, news, and guides. Explore our articles tailored for tech enthusiasts, consumers, and students.
+                </p>
+                <a href="#latest-articles-section" class="btn btn-motech-primary">Explore More</a> 
+            </div>
+        </section>
+
+        <section id="featured-content-section" class="featured-content-section">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4 featured-item">
+                        <img src="Earbuds2.jpeg" alt="MoTech V2 wireless earbuds in charging case" onerror="this.src='https://placehold.co/400x300/2c2c2c/e0e0e0?text=Earbuds'; this.onerror=null;">
+                    </div>
+                    <div class="col-md-4 mb-4 featured-item">
+                        <img src="iphone2.jpeg" alt="Latest MoTech smartphone model" onerror="this.src='https://placehold.co/400x300/2c2c2c/e0e0e0?text=iPhone'; this.onerror=null;">
+                    </div>
+                    <div class="col-md-4 mb-4 featured-item">
+                        <img src="Keyboard2.jpeg" alt="MoTech gaming keyboard with RGB lighting" onerror="this.src='https://placehold.co/400x300/2c2c2c/e0e0e0?text=Keyboard'; this.onerror=null;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="latest-articles-section" class="latest-articles-section">
+            <div class="container">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <div class="article-card">
+                            <a href="article-budget-laptops.html" class="text-decoration-none">
+                                <img src="Laptop.jpeg" class="card-img-top" alt="A sleek laptop open on a desk" onerror="this.src='https://placehold.co/600x400/444/ccc?text=Laptop+Article'; this.onerror=null;">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="article-budget-laptops.html">Top 3 Budget-Friendly Laptops for Programming</a>
+                                </h5>
+                                <p class="card-author">By Mohammad Fayyaz</p>
+                                <p class="card-text">Finding the right laptop for programming can greatly enhance your workflow, especially when you're operating on a limited budget. A...</p>
+                                <div class="card-footer-icons">
+                                    <span class="comment-count">
+                                        <svg class="comment-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 144.95 122.23">
+                                            <circle cx="83.99" cy="60.97" r="58.47"/>
+                                            <polygon points="57.31 115.65 4.14 119.43 27.45 71.49 57.31 115.65"/>
+                                            <rect x="47.58" y="34.98" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="53.24" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="71.49" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                        </svg>
+                                        <span>23</span>
+                                    </span>
+                                    <a href="#" class="share-icon-link">
+                                        <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 132.51 132.51">
+                                            <circle class="enclosing-circle" cx="66.26" cy="66.26" r="61.26"/>
+                                            <rect x="54.8" y="27.29" width="4.96" height="47.15" transform="translate(56.43 -25.73) rotate(47.76)"/>
+                                            <rect x="58.99" y="59.4" width="4.96" height="47.15" transform="translate(162.75 103.07) rotate(137.76)"/>
+                                            <circle cx="76.18" cy="33.18" r="9.92"/>
+                                            <circle cx="76.18" cy="97.6" r="9.92"/>
+                                            <circle cx="41.07" cy="66.26" r="9.92"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex">
+                        <div class="article-card">
+                             <a href="article-build-pc.html" class="text-decoration-none">
+                                <img src="Computer.jpeg" class="card-img-top" alt="Inside of a custom built PC with components visible" onerror="this.src='https://placehold.co/600x400/444/ccc?text=PC+Build+Article'; this.onerror=null;">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                     <a href="article-build-pc.html">How to Assemble Your Own PC: A Step-by-Step Guide</a>
+                                </h5>
+                                <p class="card-author">By Mohammad Fayyaz</p>
+                                <p class="card-text">Building your own PC can feel overwhelming, especially if you are new to the concept. However, the process is incredibly rewarding and...</p>
+                                <div class="card-footer-icons">
+                                    <span class="comment-count">
+                                        <svg class="comment-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 144.95 122.23">
+                                            <circle cx="83.99" cy="60.97" r="58.47"/>
+                                            <polygon points="57.31 115.65 4.14 119.43 27.45 71.49 57.31 115.65"/>
+                                            <rect x="47.58" y="34.98" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="53.24" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="71.49" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                        </svg>
+                                        <span>15</span>
+                                    </span>
+                                     <a href="#" class="share-icon-link">
+                                        <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 132.51 132.51">
+                                            <circle class="enclosing-circle" cx="66.26" cy="66.26" r="61.26"/>
+                                            <rect x="54.8" y="27.29" width="4.96" height="47.15" transform="translate(56.43 -25.73) rotate(47.76)"/>
+                                            <rect x="58.99" y="59.4" width="4.96" height="47.15" transform="translate(162.75 103.07) rotate(137.76)"/>
+                                            <circle cx="76.18" cy="33.18" r="9.92"/>
+                                            <circle cx="76.18" cy="97.6" r="9.92"/>
+                                            <circle cx="41.07" cy="66.26" r="9.92"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex">
+                        <div class="article-card">
+                            <a href="article-top-smartphones.html" class="text-decoration-none">
+                                <img src="Phone.jpeg" class="card-img-top" alt="A modern smartphone lying on a surface" onerror="this.src='https://placehold.co/600x400/444/ccc?text=Smartphone+Article'; this.onerror=null;">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="article-top-smartphones.html">Smartphones Unveiled: Top 3 Devices for College Students</a>
+                                </h5>
+                                <p class="card-author">By Mohammad Fayyaz</p>
+                                <p class="card-text">In the hectic world of college life, having the right smartphone can make all the difference. These devices are not just for texting and...</p>
+                                <div class="card-footer-icons">
+                                    <span class="comment-count">
+                                        <svg class="comment-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 144.95 122.23">
+                                            <circle cx="83.99" cy="60.97" r="58.47"/>
+                                            <polygon points="57.31 115.65 4.14 119.43 27.45 71.49 57.31 115.65"/>
+                                            <rect x="47.58" y="34.98" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="53.24" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                            <rect x="47.58" y="71.49" width="71.06" height="4.33" fill="#e0e0e0"/>
+                                        </svg>
+                                        <span>31</span>
+                                    </span>
+                                     <a href="#" class="share-icon-link">
+                                        <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 132.51 132.51">
+                                            <circle class="enclosing-circle" cx="66.26" cy="66.26" r="61.26"/>
+                                            <rect x="54.8" y="27.29" width="4.96" height="47.15" transform="translate(56.43 -25.73) rotate(47.76)"/>
+                                            <rect x="58.99" y="59.4" width="4.96" height="47.15" transform="translate(162.75 103.07) rotate(137.76)"/>
+                                            <circle cx="76.18" cy="33.18" r="9.92"/>
+                                            <circle cx="76.18" cy="97.6" r="9.92"/>
+                                            <circle cx="41.07" cy="66.26" r="9.92"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pixel-xl-specs" class="py-10 sm:py-16" style="background-color: var(--motech-section-dark);"> 
+            <div class="container mx-auto max-w-5xl text-center px-4">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 flex items-center justify-center">
+                    Google Pixel 9 Pro XL
+                    <svg class="pixel-title-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 132.28 64.35">
+                        <polygon points="118.87 16.09 118.87 0 0 0 0 64.35 118.87 64.35 118.87 48.71 132.28 48.71 132.28 16.09 118.87 16.09" style="fill: var(--motech-text-white);"/>
+                        <rect x="8.94" y="11.17" width="102.34" height="42.01" style="fill: var(--motech-accent-blue);"/>
+                    </svg>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto">
+                    Explore the detailed specifications of the Google Pixel 9 Pro XL. Here's a breakdown of the key features that define this powerful smartphone.
+                </p>
+            </div>
+    
+            <div class="container mx-auto max-w-6xl px-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="feature-card flex flex-col">
+                        <img src="Pixel-Phone.jpeg" alt="Pixel 9 Pro XL Display Screen" class="w-full h-48 object-contain bg-white" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FFFFFF/000000?text=Display+Not+Found';">
+                        <div class="p-6 flex-grow">
+                            <ul class="space-y-3 text-gray-300 text-sm">
+                                <li>6.8-inch Super Actua display (LTPO)</li>
+                                <li>120Hz adaptive refresh rate</li>
+                                <li>QHD+ resolution</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-card flex flex-col">
+                        <img src="Tensor-G4-3.jpeg" alt="Google Tensor G4 Chip" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333333/FFFFFF?text=Processor+Not+Found';">
+                        <div class="p-6 flex-grow">
+                            <ul class="space-y-3 text-gray-300 text-sm">
+                                <li>Google Tensor G4</li>
+                                <li>Octa-core CPU</li>
+                                <li>Titan M2 security coprocessor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-card flex flex-col">
+                        <img src="Pixel-camera.jpeg" alt="Pixel 9 Pro XL Camera Lenses" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333333/FFFFFF?text=Camera+Not+Found';">
+                        <div class="p-6 flex-grow">
+                            <ul class="space-y-3 text-gray-300 text-sm">
+                                <li>50MP wide-angle</li>
+                                <li>48MP telephoto</li>
+                                <li>48MP ultrawide</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-card flex flex-col">
+                        <img src="google-pixel-9-pro-xl-charging.jpeg" alt="Pixel 9 Pro XL charging port" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333333/FFFFFF?text=Battery+Not+Found';">
+                        <div class="p-6 flex-grow">
+                            <ul class="space-y-3 text-gray-300 text-sm">
+                                <li>5000 mAh battery</li>
+                                <li>30W fast charging</li>
+                                <li>Wireless charging</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-us-section" class="contact-section-wrapper"> 
+            <div style="background-color: var(--motech-card-dark);" class="p-6 sm:p-8 lg:p-10 rounded-lg shadow-2xl w-full max-w-2xl mx-auto">
+                <div class="contact-title-wrapper">
+                     <svg class="contact-title-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 166.36 133.43">
+                        <circle cx="83.18" cy="43.48" r="40.98" style="fill: var(--motech-accent-blue); stroke: var(--motech-text-white); stroke-miterlimit: 10; stroke-width: 5px;"/>
+                        <ellipse cx="83.18" cy="109.28" rx="80.68" ry="21.65" style="fill: var(--motech-accent-blue); stroke: var(--motech-text-white); stroke-miterlimit: 10; stroke-width: 5px;"/>
+                        <circle cx="103.92" cy="33.49" r="5.52" style="fill: var(--motech-text-white); stroke: var(--motech-bg-dark); stroke-miterlimit: 10; stroke-width: 2px;"/>
+                        <circle cx="64.61" cy="33.49" r="5.52" style="fill: var(--motech-text-white); stroke: var(--motech-bg-dark); stroke-miterlimit: 10; stroke-width: 2px;"/>
+                        <ellipse cx="83.18" cy="59.56" rx="18.95" ry="5.77" style="fill: var(--motech-text-white); stroke: var(--motech-bg-dark); stroke-miterlimit: 10; stroke-width: 2px;"/>
+                    </svg>
+                    <h1 class="text-2xl sm:text-3xl font-bold" style="color: var(--motech-text-white);">Contact Us</h1>
+                    <svg class="contact-title-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 147.16 107.19">
+                        <rect width="147.16" height="107.19" style="fill:var(--motech-text-white);" />
+                        <polyline points="0 5.41 73.58 59.01 147.16 5.41" style="fill: var(--motech-accent-blue); stroke:var(--motech-accent-blue); stroke-width:10px;"/>
+                         <rect y="5.41" width="147.16" height="96.37" style="fill:none; stroke:var(--motech-text-white); stroke-width:10px;" />
+                    </svg>
+                </div>
+                <hr class="border-t-2 mb-6 w-full" style="border-color: var(--motech-accent-blue);">
+                <p class="mb-8 text-sm sm:text-base" style="color: var(--motech-text-light);">
+                    Have questions or feedback? Fill out the form below to get in touch with us.
+                </p>
+        
+                <section>
+                    <form id="contactForm" action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="ui_full_name" class="block text-sm font-medium mb-1" style="color: var(--motech-text-light);">Full Name:</label>
+                            <input type="text" name="ui_full_name" id="ui_full_name" placeholder="e.g., Jane Doe"
+                                   class="form-input-ui text-sm sm:text-base">
+                        </div>
+        
+                        <div>
+                            <label for="ui_email_address" class="block text-sm font-medium mb-1" style="color: var(--motech-text-light);">Email Address:</label>
+                            <input type="email" name="ui_email_address" id="ui_email_address" placeholder="e.g., jane.doe@example.com"
+                                   class="form-input-ui text-sm sm:text-base">
+                        </div>
+        
+                        <div>
+                            <label for="ui_message" class="block text-sm font-medium mb-1" style="color: var(--motech-text-light);">Message:</label>
+                            <textarea name="ui_message" id="ui_message" rows="4" placeholder="Enter your message here..."
+                                      class="form-input-ui text-sm sm:text-base resize-none"></textarea>
+                        </div>
+        
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                             <button type="submit" class="btn-ui-primary py-2.5 sm:py-3 px-6 sm:px-8 w-full sm:w-auto">
+                                Send Message
+                            </button>
+                            <button type="reset" class="btn-ui-secondary py-2.5 sm:py-3 px-6 sm:px-8 w-full sm:w-auto">
+                                Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </section>
+        </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MoTech. All Rights Reserved. (Created by Mohammad Fayyaz)</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTopBtn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+        </svg>
+    </button>
+
+    <div id="submissionModal" class="modal-overlay"> 
+        <div class="modal-content">
+            <h2>Message Sent!</h2>
+            <p>Your message has been received and will be reviewed shortly. Thank you!</p>
+            <button id="closeModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Share this Article</h2>
+            <p>Choose a platform to share this article:</p>
+            <div id="shareModalOptions" class="my-4">
+                <a href="#" target="_blank" rel="noopener noreferrer">Share on Facebook (Demo)</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Share on Twitter (Demo)</a>
+                <a href="#" id="copyLinkBtn">Copy Link (Demo)</a>
+            </div>
+            <button id="closeShareModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
+
+    <div id="commentModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Comment Submitted</h2>
+            <p>Your comment has been submitted for review (Demo).</p>
+            <button id="closeCommentModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        // This is for the "Scroll to Top" button
+        var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        
+        // Show the button when I scroll down a bit
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            scrollToTopBtn.style.display = "block";
+          } else {
+            scrollToTopBtn.style.display = "none";
+          }
+        }
+        
+        // When I click the button, scroll smoothly to the top
+        scrollToTopBtn.onclick = function() {
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // This script tries to make the current section's nav link "active"
+        const navLinks = document.querySelectorAll('header nav .nav-link');
+        const sections = document.querySelectorAll('main section[id]'); // Get sections that have an ID
+
+        function changeLinkState() {
+            let index = sections.length;
+            // Figuring out which section is currently visible on screen
+            while(--index && window.scrollY + 100 < sections[index].offsetTop) {} // 100 is an offset
+            
+            navLinks.forEach((link) => link.classList.remove('active')); // Remove 'active' from all links first
+            
+            // If there's a section visible that has an ID...
+            if (sections[index]) {
+                // ...try to find the nav link that points to it
+                const activeLink = document.querySelector(`header nav .nav-link[href="#${sections[index].id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active'); // And make it active
+                }
+            }
+
+            // Special check for the Reviews page, since it's a separate HTML file
+            if (window.location.pathname.includes('review-pixel-nine-pro-xl.html')) {
+                const reviewsLink = document.querySelector(`header nav .nav-link[href="review-pixel-nine-pro-xl.html"]`);
+                if (reviewsLink) {
+                    navLinks.forEach((link) => link.classList.remove('active')); // Clear other active states
+                    reviewsLink.classList.add('active');
+                }
+            }
+        }
+
+        // Check link state on page load
+        if (window.location.pathname.includes('review-pixel-nine-pro-xl.html')) {
+            const reviewsLink = document.querySelector(`header nav .nav-link[href="review-pixel-nine-pro-xl.html"]`);
+            if (reviewsLink) {
+                 navLinks.forEach((link) => link.classList.remove('active'));
+                reviewsLink.classList.add('active');
+            }
+        } else {
+            changeLinkState(); // For homepage anchor links
+        }
+        // And also check when I scroll
+        window.addEventListener('scroll', changeLinkState);
+
+        // This is for the pop-up when I "send" the contact form
+        const contactForm = document.getElementById('contactForm');
+        const submissionModal = document.getElementById('submissionModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        if (contactForm) { // Make sure the form exists on the page
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Stop the form from actually submitting/reloading the page
+                submissionModal.style.display = 'flex'; // Show my pop-up!
+            });
+        }
+
+        if (closeModalBtn) { // If the close button for that pop-up exists
+            closeModalBtn.addEventListener('click', function() {
+                submissionModal.style.display = 'none'; // Hide the pop-up
+                if (contactForm) {
+                    contactForm.reset(); // Clear the form fields
+                }
+            });
+        }
+        
+        // If I click outside the pop-up box, it should also close
+        window.addEventListener('click', function(event) {
+            if (event.target == submissionModal) { // Check if the click was on the overlay itself
+                submissionModal.style.display = 'none';
+                 if (contactForm) {
+                    contactForm.reset(); 
+                }
+            }
+        });
+
+        // JavaScript for the pop-ups on the article cards (Share and Comment)
+        const shareModal = document.getElementById('shareModal');
+        const commentModal = document.getElementById('commentModal');
+        const closeShareModalBtn = document.getElementById('closeShareModalBtn');
+        const closeCommentModalBtn = document.getElementById('closeCommentModalBtn');
+        const copyLinkBtn = document.getElementById('copyLinkBtn'); // The "Copy Link" button in the share modal
+
+        // Adding click listeners to all share icons
+        document.querySelectorAll('.share-icon-link').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault(); // Stop any default link behavior
+                shareModal.style.display = 'flex'; // Show the share pop-up
+            });
+        });
+
+        // Adding click listeners to all comment icons/counts
+        document.querySelectorAll('.comment-count').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault(); 
+                commentModal.style.display = 'flex'; // Show the comment pop-up
+            });
+        });
+
+        // Closing the share pop-up
+        if(closeShareModalBtn) {
+            closeShareModalBtn.addEventListener('click', function() {
+                shareModal.style.display = 'none';
+            });
+        }
+        
+        // For the "Copy Link" button in the share pop-up
+        if(copyLinkBtn){
+            copyLinkBtn.addEventListener('click', function(event){
+                event.preventDefault();
+                // This is a simple way to try and copy the page URL.
+                // It might not work in all browsers or situations perfectly.
+                const pageUrl = window.location.href; 
+                navigator.clipboard.writeText(pageUrl).then(function() {
+                    alert('Link copied to clipboard!'); // Simple confirmation
+                }, function(err) {
+                    alert('Could not copy link. Try manually!'); // Fallback message
+                });
+            });
+        }
+
+        // Closing the comment pop-up
+        if(closeCommentModalBtn) {
+            closeCommentModalBtn.addEventListener('click', function() {
+                commentModal.style.display = 'none';
+            });
+        }
+
+        // This makes it so if I click outside the pop-up box, it closes
+        window.addEventListener('click', function(event) {
+            if (event.target == shareModal) {
+                shareModal.style.display = 'none';
+            }
+            if (event.target == commentModal) {
+                commentModal.style.display = 'none';
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout - Basic CSS</title>
+    <style>
+        /* Remove default browser margin and padding */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%; /* Make sure the page can use full screen height */
+        }
+
+        /* Main wrapper for the whole page */
+        .page-wrapper {
+            display: flex; /* Helps arrange sections vertically */
+            flex-direction: column; /* Stack sections on top of each other */
+            height: 100vh; /* Make page fill the browser window height */
+        }
+
+        /* Style for the very top bar */
+        .top-bar {
+            background-color: #dce0e9; /* Lightest grey color */
+            min-height: 20px;      /* How tall this bar is */
+            flex-shrink: 0;        /* Keep this bar its set height */
+        }
+
+        /* Style for the header bar */
+        .header {
+            background-color: #798293; /* Medium grey color */
+            min-height: 50px;      /* How tall the header is */
+            flex-shrink: 0;        /* Keep the header its set height */
+        }
+
+        /* Area for the main content (sidebar and main column) */
+        .main-content-area {
+            flex-grow: 1; /* This section will fill the space left by header/footer */
+            overflow: auto; /* Important for containing floated elements */
+            /* The next two lines help if floated items cause weird spacing */
+            line-height: 0;
+            font-size: 0;
+        }
+
+        /* Style for the sidebar (left column) */
+        .sidebar {
+            background-color: #385796; /* Blue color */
+            float: left;               /* Makes this a left column */
+            width: 25%;                /* How wide the sidebar is */
+            box-sizing: border-box;    /* Makes width calculation include padding/border if added */
+            height: 100%;              /* Make sidebar as tall as its container */
+        }
+
+        /* Style for the main column (right of sidebar) */
+        .main-column {
+            background-color: #4d586e; /* Dark grey color */
+            float: left;               /* Makes this a right column next to sidebar */
+            width: 75%;                /* How wide the main column is */
+            box-sizing: border-box;
+            height: 100%;              /* Make main column as tall as its container */
+        }
+
+        /* Style for the footer bar */
+        .footer {
+            background-color: #510811; /* Dark red color */
+            min-height: 40px;      /* How tall the footer is */
+            flex-shrink: 0;        /* Keep the footer its set height */
+        }
+
+        /* Styles for when the screen is small (like on a phone) */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                height: auto; /* Let page height adjust to content on small screens */
+                min-height: 100vh;
+            }
+            .main-content-area .sidebar,
+            .main-content-area .main-column {
+                width: 100%; /* Make columns full width to stack them */
+                float: none; /* Turn off float so they stack */
+                height: auto; /* Let height adjust to content */
+                min-height: 200px; /* Give some height even if empty */
+            }
+            .main-content-area .sidebar {
+                min-height: 150px; /* Example height for stacked sidebar */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="top-bar">
+        </div>
+        <div class="header">
+        </div>
+
+        <div class="main-content-area">
+            <div class="sidebar">
+            </div>
+            <div class="main-column">
+            </div>
+        </div>
+
+        <div class="footer">
+        </div>
+    </div>
+</body>
+</html>
